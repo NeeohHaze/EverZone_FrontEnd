@@ -1,52 +1,55 @@
 import React from "react";
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 
 function Navbar() {
+  // This function decides which classes to apply.
+  // If the link is active (isActive is true), it applies the green text class.
+  const getLinkClass = ({ isActive }) =>
+    isActive
+      ? "text-sm font-bold text-green-600 transition" // Active State (Green)
+      : "text-sm font-semibold text-slate-700 transition hover:text-slate-900"; // Normal State
+
   return (
     <header className="sticky top-0 z-50 border-b border-black/5 bg-white/80 backdrop-blur">
       <nav
-        className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3"
+        className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4"
         aria-label="Primary"
       >
-        <a href="/" className="text-xl font-extrabold tracking-tight text-slate-900">
-          EverZone
-        </a>
+        {/* Logo - Points to Home */}
+        <NavLink
+          to="/Home"
+          className="text-xl font-extrabold tracking-tight text-slate-900"
+        >
+          {/* If you have a logo image, replace the text below with <img src={logo} alt="EverZone" className="h-10" /> */}
+          <span className="text-slate-400">Ever</span>
+          <span className="text-blue-500">ZONE</span>
+        </NavLink>
 
-        <ul className="flex flex-wrap items-center gap-2 sm:gap-4">
+        <ul className="flex flex-wrap items-center gap-8">
           <li>
-            <Link to="/Home"
-              className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900"
-            >
+            <NavLink to="/Home" className={getLinkClass}>
               Home
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/AboutUs"
-              className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900"
-            >
+            <NavLink to="/AboutUs" className={getLinkClass}>
               About Us
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/Services"
-              className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900"
-            >
+            <NavLink to="/Services" className={getLinkClass}>
               Services
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/Projects"
-              className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900"
-            >
+            <NavLink to="/Projects" className={getLinkClass}>
               Projects
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/ContactUs"
-              className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
-            >
+            <NavLink to="/ContactUs" className={getLinkClass}>
               Contact Us
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </nav>
