@@ -7,87 +7,92 @@ function ContactUs() {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-white px-6 py-12 lg:px-24">
-      {/* Page Title */}
-      <h1 className="mb-10 text-3xl font-bold text-slate-900">Contact Us</h1>
+    <div className="relative min-h-screen w-full bg-white px-6 py-12 lg:px-16">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-2">
+        {/* LEFT COLUMN: Title & Form */}
+        <div>
+          <h1 className="mb-8 text-4xl font-bold text-slate-900">Contact Us</h1>
 
-      {/* Contact Form Section */}
-      <form onSubmit={handleSubmit} className="mb-20 max-w-4xl">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {/* Full Name Input */}
-          <div className="flex flex-col">
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="w-full bg-gray-200 p-4 text-center font-bold text-slate-900 placeholder-slate-900 outline-none focus:ring-2 focus:ring-slate-400"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Row 1: First Name & Last Name */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <input
+                type="text"
+                placeholder="First Name"
+                className="w-full bg-gray-300 p-4 text-center font-bold text-slate-900 placeholder-slate-900 outline-none focus:ring-2 focus:ring-slate-400"
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                className="w-full bg-gray-300 p-4 text-center font-bold text-slate-900 placeholder-slate-900 outline-none focus:ring-2 focus:ring-slate-400"
+              />
+            </div>
 
-          {/* Email Input */}
-          <div className="flex flex-col">
+            {/* Row 2: Email */}
             <input
               type="email"
               placeholder="Email"
-              className="w-full bg-gray-200 p-4 text-center font-bold text-slate-900 placeholder-slate-900 outline-none focus:ring-2 focus:ring-slate-400"
+              className="w-full bg-gray-300 p-4 text-center font-bold text-slate-900 placeholder-slate-900 outline-none focus:ring-2 focus:ring-slate-400"
             />
-          </div>
+
+            {/* Row 3: Phone Number */}
+            <input
+              type="tel"
+              placeholder="Phone number"
+              className="w-full bg-gray-300 p-4 text-center font-bold text-slate-900 placeholder-slate-900 outline-none focus:ring-2 focus:ring-slate-400"
+            />
+
+            {/* Row 4: Message */}
+            <textarea
+              rows="6"
+              placeholder="Message"
+              className="flex w-full resize-none items-center justify-center bg-gray-300 p-8 text-center font-bold text-slate-900 placeholder-slate-900 outline-none focus:ring-2 focus:ring-slate-400"
+            ></textarea>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full bg-black py-4 text-lg font-bold text-white transition hover:bg-slate-800"
+            >
+              Send Message
+            </button>
+          </form>
         </div>
 
-        {/* Message Input */}
-        <div className="mt-6">
-          <textarea
-            rows="6"
-            placeholder="Message"
-            className="w-full resize-none bg-gray-200 p-8 text-left font-bold text-slate-900 placeholder-slate-900 outline-none focus:ring-2 focus:ring-slate-400"
-          ></textarea>
-        </div>
-
-        {/* Send Button */}
-        <div className="mt-6">
-          <button
-            type="submit"
-            className="bg-black px-10 py-4 text-sm font-bold text-white transition hover:bg-slate-800"
-          >
-            Send Message
-          </button>
-        </div>
-      </form>
-
-      {/* Info & Map Section */}
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-        {/* Contact Info Text */}
-        <div className="space-y-8 text-lg text-slate-800">
-          <div>
-            <span className="font-bold">Office Address-</span>
-            <p className="mt-1 text-slate-600">
-              123 Engineering Lane, Yangon, Myanmar
+        {/* RIGHT COLUMN: Info & Map */}
+        <div className="flex flex-col pt-4 lg:pt-20">
+          {/* Contact Details Text */}
+          <div className="mb-10 space-y-6 text-lg text-slate-800">
+            <p>
+              <span className="font-semibold text-slate-900">
+                Office Address-
+              </span>{" "}
+              1234
+            </p>
+            <p>
+              <span className="font-semibold text-slate-900">
+                Contact Details-
+              </span>{" "}
+              1234
+            </p>
+            <p>
+              <span className="font-semibold text-slate-900">Email-</span>{" "}
+              1234@gmail.com
+            </p>
+            <p>
+              <span className="font-semibold text-slate-900">Phone-</span>{" "}
+              12341234
             </p>
           </div>
 
-          <div>
-            <span className="font-bold">Contact Details-</span>
-            <p className="mt-1 text-slate-600">Available Mon-Fri, 9am - 5pm</p>
+          {/* Map Section */}
+          <div className="flex h-80 w-full grow items-center justify-center bg-gray-300 text-slate-900">
+            <span className="text-xl font-bold">Map</span>
           </div>
-
-          <div>
-            <span className="font-bold">Email-</span>
-            <p className="mt-1 text-slate-600">info@everzone.com</p>
-          </div>
-
-          <div>
-            <span className="font-bold">Phone-</span>
-            <p className="mt-1 text-slate-600">+95 9 123 456 789</p>
-          </div>
-        </div>
-
-        {/* Map Placeholder */}
-        {/* You can replace this iframe with a real Google Map embed code later */}
-        <div className="flex h-64 w-full items-center justify-center bg-gray-300 lg:h-80">
-          <span className="text-xl font-bold text-slate-600">Map</span>
         </div>
       </div>
 
-      {/* Floating Chatbot Button */}
+      {/* Floating Chatbot Button (Preserved) */}
       <button
         className="fixed bottom-8 right-8 z-50 flex h-20 w-20 flex-col items-center justify-center rounded-full bg-gray-300 shadow-xl transition hover:scale-105 hover:bg-gray-400"
         aria-label="Open Chatbot"
