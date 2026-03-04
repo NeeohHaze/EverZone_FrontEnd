@@ -9,7 +9,7 @@ function Home() {
         {/* LEFT COLUMN: Text Content */}
         <div className="flex flex-col justify-center">
           {/* Main Headline */}
-          <h1 className="text-5xl font-bold leading-tight text-slate-700 sm:text-3xl lg:text-4xl">
+          <h1 className="text-5xl font-bold leading-tight text-slate-700 sm:text-3xl lg:text-xl">
             Ever Zone, the service of your desires
           </h1>
 
@@ -24,18 +24,21 @@ function Home() {
             {/* 'View our Projects' Button */}
             <Link
               to="/Projects"
-              className="group flex w-fit items-center gap-4 rounded-full bg-[#1a455a] py-2 pl-6 pr-2 text-white transition hover:bg-[#153849]"
+              className="group flex w-fit items-center gap-4 rounded-full bg-[#113243] py-1.5 pl-7 pr-1.5 text-white transition-all shadow-sm hover:bg-[#18445a]"
             >
-              <span className="font-semibold">View our Projects</span>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#84cc16] text-[#1a455a] transition duration-300 group-hover:scale-110">
+              <span className="font-bold text-[17px] tracking-wide">
+                View our Projects
+              </span>
+
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#7fc41b] text-[#113243] transition-transform duration-300 group-hover:translate-x-1">
                 {/* Arrow Right Icon */}
                 <svg
-                  width="24"
-                  height="24"
+                  width="22"
+                  height="22"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.5"
+                  strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
@@ -43,21 +46,23 @@ function Home() {
                 </svg>
               </div>
             </Link>
-
             {/* 'Contact Us' Button */}
             <Link
               to="/ContactUs"
-              className="group flex w-fit items-center gap-4 rounded-full bg-[#1a455a] py-2 pl-6 pr-2 text-white transition hover:bg-[#153849]"
+              className="group flex w-fit items-center gap-4 rounded-full bg-[#113243] py-1.5 pl-7 pr-1.5 text-white transition-all shadow-sm hover:bg-[#18445a]"
             >
-              <span className="font-semibold">Contact Us</span>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#84cc16] text-[#1a455a] transition duration-300 group-hover:scale-110">
+              <span className="font-bold text-[17px] tracking-wide">
+                Contact Us
+              </span>
+
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#7fc41b] text-[#113243] transition-transform duration-300 group-hover:translate-x-1">
                 <svg
-                  width="24"
-                  height="24"
+                  width="22"
+                  height="22"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.5"
+                  strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >

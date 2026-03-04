@@ -1,141 +1,148 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import apiClient from "../services/api";
 
 function Services() {
-  // State to track which service is currently open (defaulting to null or 0)
-  const [openIndex, setOpenIndex] = useState(0);
+  const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Data Array
-  const services = [
-    {
-      id: 0,
-      number: "01",
-      title: "Road and Bridge Construction",
-      description:
-        "Road and bridge construction involves designing and building safe, durable transportation infrastructure that supports efficient travel and ensures longevity. It requires precise planning, quality materials, and adherence to engineering standards to withstand heavy loads.",
-      image:
-        "https://images.unsplash.com/photo-1545558014-8692077e9b5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", // Placeholder bridge image
-    },
-    {
-      id: 1,
-      number: "02",
-      title: "Earth Works",
-      description:
-        "Comprehensive earthworks including excavation, land grading, and soil stabilization to prepare foundations for major construction projects.",
-      image:
-        "https://images.unsplash.com/photo-1588612502660-f6555b76d05f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 2,
-      number: "03",
-      title: "Building Construction",
-      description:
-        "End-to-end building construction services for residential, commercial, and industrial structures, focusing on safety, sustainability, and modern design.",
-      image:
-        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 3,
-      number: "04",
-      title: "Steel Structure Works",
-      description:
-        "Fabrication and erection of high-quality steel structures for warehouses, factories, and high-rise buildings, ensuring structural integrity.",
-      image:
-        "https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 4,
-      number: "05",
-      title: "Fit-Out and Construction Project Management",
-      description:
-        "Professional project management and interior fit-out services to deliver projects on time, within budget, and to the highest quality standards.",
-      image:
-        "https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    },
-  ];
+  // Track which service is currently expanded (default to the first one: 0)
+  const [expandedIndex, setExpandedIndex] = useState(0);
 
-  const toggleService = (index) => {
-    // If clicking the already open one, close it (set to null), otherwise open the new one
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        setIsLoading(true);
+        const response = await apiClient.get("/services");
+
+        let dataArray = [];
+        if (response.data && Array.isArray(response.data.data)) {
+          dataArray = response.data.data;
+        } else if (Array.isArray(response.data)) {
+          dataArray = response.data;
+        }
+
+        setServices(dataArray);
+        setIsLoading(false);
+      } catch (err) {
+        console.error("Error fetching services:", err);
+        setError("Failed to load services.");
+        setIsLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-slate-50">
+        <div className="text-xl font-semibold animate-pulse text-[#113243]">
+          Loading services...
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-slate-50">
+        <div className="text-xl text-red-500 bg-red-50 p-6 rounded-lg shadow">
+          {error}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen w-full bg-slate-50">
-      {/* 1. Header Section */}
-      <div className="w-full bg-[#1a455a] px-6 pb-32 pt-16 text-center lg:px-16">
-        <h1 className="text-3xl font-medium text-white sm:text-4xl">
-          Services we provide
-        </h1>
-      </div>
-
-      {/* 2. Overlapping List Container */}
-      <div className="mx-auto -mt-20 max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-2xl bg-white shadow-xl">
-          {services.map((service, index) => {
-            const isOpen = openIndex === index;
-
-            return (
-              <div
-                key={service.id}
-                onClick={() => toggleService(index)}
-                className={`cursor-pointer border-b border-gray-100 transition-all duration-300 ease-in-out ${
-                  isOpen
-                    ? "bg-gray-200/50 py-10"
-                    : "bg-white py-8 hover:bg-gray-50"
-                }`}
-              >
-                <div className="px-6 lg:px-12">
-                  {/* Top Row: Number & Title */}
-                  <div className="flex items-center">
-                    {/* Number (Left) */}
-                    <span className="w-12 text-sm font-serif text-slate-500 lg:w-24 lg:text-base">
-                      {service.number}
-                    </span>
-
-                    {/* Title (Center) */}
-                    <h2
-                      className={`flex-1 text-center text-xl text-slate-700 lg:text-2xl ${
-                        isOpen ? "font-medium" : "font-normal"
-                      }`}
-                    >
-                      {service.title}
-                    </h2>
-
-                    {/* Spacer for balance (Right) */}
-                    <span className="w-12 lg:w-24"></span>
-                  </div>
-
-                  {/* Expanded Content: Image & Description */}
-                  {/* We use a max-height transition trick or simply conditional rendering for simplicity */}
-                  {isOpen && (
-                    <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12 animate-fadeIn">
-                      {/* Left: Image */}
-                      <div className="w-full lg:w-1/2">
-                        <div className="overflow-hidden rounded-lg shadow-md">
-                          <img
-                            src={service.image}
-                            alt={service.title}
-                            className="h-64 w-full object-cover transition-transform duration-500 hover:scale-105"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Right: Description */}
-                      <div className="w-full lg:w-1/2">
-                        <p className="font-serif text-lg leading-relaxed text-slate-600 italic">
-                          {service.description}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+    <div className="min-h-screen bg-slate-50 pb-20">
+      {/* Dark Blue Header Background */}
+      <div className="bg-[#113243] pt-16 pb-32">
+        <div className="container mx-auto px-4">
+          <h1 className="text-3xl md:text-4xl font-medium text-center text-white tracking-wide">
+            Services we provide
+          </h1>
         </div>
       </div>
 
-      {/* Bottom spacing */}
-      <div className="h-20"></div>
+      {/* Main White Card Overlapping Header */}
+      <div className="container mx-auto px-4 max-w-5xl -mt-16">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden p-6 md:p-10 border border-slate-100">
+          {services.length === 0 ? (
+            <div className="text-center text-slate-500 py-16">
+              <p className="text-xl font-medium mb-2">No services found.</p>
+              <p>Your database is currently empty.</p>
+            </div>
+          ) : (
+            <div className="flex flex-col">
+              {services.map((service, index) => {
+                const isActive = expandedIndex === index;
+                const number = String(index + 1).padStart(2, "0");
+
+                return (
+                  <div
+                    key={service.id}
+                    className="border-b border-slate-200 last:border-0"
+                  >
+                    {/* Active/Expanded State */}
+                    {isActive ? (
+                      <div className="bg-[#f4f7f8] rounded-xl p-6 md:p-8 my-4 shadow-sm transition-all duration-500 ease-in-out animate-fadeIn">
+                        {/* Header of active item */}
+                        <div className="flex items-center gap-6 mb-6">
+                          <span className="text-slate-400 font-medium text-lg w-8">
+                            {number}
+                          </span>
+                          <h2 className="text-2xl font-semibold text-[#113243]">
+                            {service.title}
+                          </h2>
+                        </div>
+
+                        {/* Content of active item */}
+                        <div className="flex flex-col md:flex-row gap-8">
+                          {/* Image */}
+                          <div className="w-full md:w-2/5 h-48 md:h-56 bg-white p-2 rounded-lg shadow-sm shrink-0">
+                            {service.image ? (
+                              <img
+                                src={service.image}
+                                alt={service.title}
+                                className="w-full h-full object-cover rounded"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100 rounded">
+                                No Image
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Description Text */}
+                          <div className="w-full md:w-3/5 flex items-center">
+                            <p className="text-slate-600 text-base md:text-lg leading-relaxed italic">
+                              {service.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      /* Inactive/Collapsed State */
+                      <div
+                        onClick={() => setExpandedIndex(index)}
+                        className="flex items-center gap-6 py-6 px-4 md:px-8 cursor-pointer hover:bg-slate-50 transition-colors group"
+                      >
+                        <span className="text-slate-400 font-medium text-lg w-8 group-hover:text-[#7fc41b] transition-colors">
+                          {number}
+                        </span>
+                        <h2 className="text-xl font-medium text-slate-600 group-hover:text-[#113243] transition-colors">
+                          {service.title}
+                        </h2>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
