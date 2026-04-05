@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./components/Navbar";
 import { Outlet } from "react-router";
 import Footer from "./components/Footer";
-import Chatbot from "./components/Chatbot"; // <--- Import it here
+import Chatbot from "./components/Chatbot";
 
 function Layout() {
   return (
@@ -15,7 +15,6 @@ function Layout() {
 
       <Footer />
 
-      {/* Add the Chatbot component here */}
       <Chatbot />
     </div>
   );

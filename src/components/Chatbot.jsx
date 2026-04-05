@@ -31,24 +31,52 @@ function Chatbot() {
     setIsLoading(true);
 
     try {
-      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-      
-      const response = await fetch(`${apiBaseUrl}chat`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: userMessage,
-        }),
-      });
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      const model = import.meta.env.VITE_GEMINI_MODEL || 'gemini-2.5-flash-lite';
+
+      if (!apiKey) {
+        throw new Error('Gemini API key is not configured');
+      }
+
+      // System prompt to limit chatbot to company-related topics
+      const systemPrompt = `You are a helpful AI assistant for EverZone, a professional web and mobile development company.
+
+IMPORTANT - You MUST follow these rules:
+1. Only answer questions about EverZone's services, projects, team, web/mobile development, and related topics
+2. If a question is NOT related to the company or development, politely decline and redirect to company-related topics
+3. Keep responses professional, friendly, and concise (max 2-3 sentences)
+4. If you don't know specific information about EverZone, say so and suggest contacting the team directly
+
+Company Focus: Web development, mobile development, UI/UX design, project solutions`;
+
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: systemPrompt + '\n\nUser: ' + userMessage
+                  }
+                ]
+              }
+            ]
+          })
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Failed to get response from backend");
+        throw new Error('Failed to get response from Gemini API');
       }
 
       const data = await response.json();
-      const botMessage = data?.data?.message || "Sorry, I couldn't generate a response.";
+      const botMessage = data?.candidates?.[0]?.content?.parts?.[0]?.text || 
+        "Sorry, I couldn't generate a response. Please try again.";
 
       setMessages(prev => [...prev, { type: "bot", text: botMessage }]);
     } catch (error) {
