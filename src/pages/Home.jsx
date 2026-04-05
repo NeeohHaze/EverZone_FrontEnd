@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import { useTranslation, initReactI18next } from "react-i18next";
+import heroImg from "../assets/HeroImg.png";
 
 function Home() {
   const { t, i18n } = useTranslation();
@@ -109,7 +110,7 @@ function Home() {
         {/* RIGHT COLUMN: Image */}
         <div className="relative flex items-center justify-center">
           <img
-            src="/src/assets/HeroImg.png"
+            src={heroImg}
             alt="EverZone Engineer"
             className="h-auto w-full rounded-3xl object-cover shadow-2xl"
           />

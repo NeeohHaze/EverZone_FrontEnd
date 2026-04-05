@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router";
 import { useTranslation } from "react-i18next";
+import logoImg from "../assets/logo.jpg";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
@@ -30,8 +31,7 @@ function Navbar() {
           <NavLink to="/Home" className="flex flex-col items-center gap-2">
             <div className="flex h-15 w-15 items-center justify-center rounded-full border-0.5 border-[#84cc16]">
               <img
-                src="/src/assets/logo.jpg
-            "
+                src={logoImg}
                 alt="Ever Zone Logo"
               />
             </div>
