@@ -1,9 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { type: "bot", text: "Hello! How can I help you today?" }
+  ]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const toggleChat = () => setIsOpen(!isOpen);
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    const userMessage = input.trim();
+    setInput("");
+    
+    // Add user message to chat
+    setMessages(prev => [...prev, { type: "user", text: userMessage }]);
+    setIsLoading(true);
+
+    try {
+      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+      
+      const response = await fetch(`${apiBaseUrl}chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: userMessage,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to get response from backend");
+      }
+
+      const data = await response.json();
+      const botMessage = data?.data?.message || "Sorry, I couldn't generate a response.";
+
+      setMessages(prev => [...prev, { type: "bot", text: botMessage }]);
+    } catch (error) {
+      console.error("Chatbot error:", error);
+      setMessages(prev => [
+        ...prev,
+        { 
+          type: "bot", 
+          text: `Error: ${error.message || "Failed to send message"}` 
+        }
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -11,25 +71,24 @@ function Chatbot() {
       {!isOpen && (
         <button
           onClick={toggleChat}
-          className="fixed bottom-8 right-8 z-50 flex h-20 w-20 flex-col items-center justify-center rounded-full bg-gray-300 shadow-xl transition hover:scale-105 hover:bg-gray-400"
+          className="fixed bottom-8 right-8 z-50 flex h-20 w-20 flex-col items-center justify-center rounded-full bg-blue-500 shadow-xl transition hover:scale-105 hover:bg-blue-600"
         >
-          <span className="text-xs font-bold text-slate-900">AI</span>
-          <span className="text-[10px] font-bold text-slate-900">Chatbot</span>
+          <span className="text-xs font-bold text-white">AI</span>
+          <span className="text-[10px] font-bold text-white">Chatbot</span>
         </button>
       )}
 
       {/* 2. OPEN STATE: Chat Window */}
       {isOpen && (
-        // The modal container: fixed position, white background, shadow
         <div className="fixed bottom-8 right-8 z-50 flex h-[500px] w-[350px] flex-col overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black/5 sm:w-[400px]">
           {/* Header */}
-          <div className="flex items-center justify-between bg-gray-200 px-6 py-4">
-            <h2 className="text-3xl font-bold text-slate-900">AI Chatbot</h2>
+          <div className="flex items-center justify-between bg-blue-500 px-6 py-4">
+            <h2 className="text-lg font-bold text-white">AI Chatbot</h2>
 
             {/* Close Button (X icon) */}
             <button
               onClick={toggleChat}
-              className="rounded-full p-1 transition hover:bg-gray-300"
+              className="rounded-full p-1 transition hover:bg-blue-600"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +96,7 @@ function Chatbot() {
                 viewBox="0 0 24 24"
                 strokeWidth={2.5}
                 stroke="currentColor"
-                className="h-8 w-8 text-black"
+                className="h-6 w-6 text-white"
               >
                 <path
                   strokeLinecap="round"
@@ -49,28 +108,57 @@ function Chatbot() {
           </div>
 
           {/* Chat Body area */}
-          <div className="flex-1 overflow-y-auto bg-white p-6">
-            {/* The Bot's Welcome Message */}
-            <div className="flex w-full">
-              <div className="max-w-[85%] rounded-lg bg-gray-200 px-4 py-3 text-lg font-bold text-slate-900">
-                Hello, How can I help you today?
+          <div className="flex-1 overflow-y-auto bg-white p-4 space-y-3">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
+              >
+                <div
+                  className={`max-w-[80%] rounded-lg px-4 py-2 text-sm ${
+                    message.type === "user"
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200 text-gray-900"
+                  }`}
+                >
+                  {message.text}
+                </div>
               </div>
-            </div>
+            ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-gray-200 px-4 py-2 rounded-lg">
+                  <div className="flex gap-1">
+                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-100"></div>
+                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-200"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Footer Input Area */}
-          <div className="bg-gray-200 p-4">
-            <div className="flex gap-3">
+          <form onSubmit={sendMessage} className="bg-gray-100 p-4">
+            <div className="flex gap-2">
               <input
                 type="text"
-                placeholder="Type"
-                className="w-full rounded-none bg-white px-4 py-3 text-lg font-medium text-slate-700 outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-slate-400"
+                placeholder="Type your message..."
+                className="flex-1 rounded-lg bg-white px-4 py-2 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                disabled={isLoading}
               />
-              <button className="bg-gray-500 px-6 text-lg font-bold text-white transition hover:bg-gray-600">
-                Enter
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="bg-blue-500 px-4 py-2 text-white font-medium rounded-lg transition hover:bg-blue-600 disabled:opacity-50"
+              >
+                Send
               </button>
             </div>
-          </div>
+          </form>
         </div>
       )}
     </>

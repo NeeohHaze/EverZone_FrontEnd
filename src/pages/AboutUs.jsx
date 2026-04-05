@@ -27,16 +27,8 @@ function AboutUs() {
                   Company profile and history
                 </h2>
                 <p className="leading-relaxed text-slate-600 text-justify">
-                  Engineering is the practice of turning ideas into real-world
-                  solutions by combining creativity, math, and problem-solving.
-                  Engineers design systems that must work reliably under real
-                  constraints, whether that means building bridges that can
-                  withstand earthquakes, writing software that handles millions
-                  of users, or creating machines that use less energy while
-                  doing more work. What makes engineering unique is the constant
-                  balance between theory and practicality—an elegant design is
-                  only successful if it can be built, maintained, and improved
-                  over time.
+                Ever Zone Construction and Decoration Company Limited is owned construction company in Myanmar. Established in 2018 Ever Zone Construction has over Five years of service to Myanmar Construction the company’s commitment, expertise and integrity in construction.
+•Projects undertaken by Ever Zone  extend across all market sectors and range from residential and luxury building.
                 </p>
               </section>
 
@@ -46,13 +38,9 @@ function AboutUs() {
                   Board of directors and key management
                 </h2>
                 <p className="leading-relaxed text-slate-600 text-justify">
-                  Engineering is the practice of turning ideas into real-world
-                  solutions by combining creativity, math, and problem-solving.
-                  Engineers design systems that must work reliably under real
-                  constraints, whether that means building bridges that can
-                  withstand earthquakes, writing software that handles millions
-                  of users, or creating machines that use less energy while
-                  doing more work.
+                  The Managing Director, U Naing Wai Lin , who was graduated in Myanmar.
+•has experienced in the field of administration, lecturing, project management, construction quality management for 17 years. He has 10 years-experience as Construction Management in Singapore and 7 years-experience in Myanmar.
+•All Board of Directors work closely with the various General Managers and partnering companies to continually manage and expand the Ever Zone Construction and Decoration Company Limited’s business into new era as a vibrant, contemporary, forward thinking company that maintains respect for traditional values and its proud heritage. The Board of Ever Zone Ltd comprises three Executive Directors and one non-Executive Director providing a balance of general corporate and management experience together with superior construction industry and financial expertise.
                 </p>
               </section>
             </div>
@@ -65,16 +53,17 @@ function AboutUs() {
                   Vision, Mission and Core Values
                 </h2>
                 <p className="leading-relaxed text-slate-600 text-justify">
-                  Engineering is the practice of turning ideas into real-world
-                  solutions by combining creativity, math, and problem-solving.
-                  Engineers design systems that must work reliably under real
-                  constraints, whether that means building bridges that can
-                  withstand earthquakes, writing software that handles millions
-                  of users. What makes engineering unique is the constant
-                  balance between theory and practicality—an elegant design is
-                  only successful if it can be built, maintained, and improved
-                  over time. Through testing, iteration, and collaboration,
-                  engineering quietly shapes everyday life.
+                  Our Vision is to achieve cost leadership in the construction market and to become a
+full-fledged construction contractor.
+
+Our Mission is to develop properties and operate the business to exceed our clients' expectations with trust building.
+Core Value
+• Trust
+•CustomerStratification
+•Commitment
+• Integrity
+Staff Development 
+•Adaptation and Flexibiity
                 </p>
               </section>
 
