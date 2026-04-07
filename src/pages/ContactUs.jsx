@@ -36,25 +36,22 @@ function ContactUs() {
     } catch (err) {
       console.error("Error submitting form:", err);
       setStatus("error");
-      setErrorMessage(
-        err.response?.data?.message || "Something went wrong. Please try again."
-      );
+      // Use the API error if it exists, otherwise fall back to our translated error message
+      setErrorMessage(err.response?.data?.message || t("contactUs.errorMsg"));
     }
   };
 
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
-      {/* Dark Blue Header Background (Matches Services Page) */}
+      {/* Dark Blue Header Background */}
       <div className="bg-[#113243] pt-16 pb-32"></div>
 
       {/* Main Overlapping Card */}
       <div className="container mx-auto px-4 max-w-6xl -mt-24">
         <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 lg:p-16 border border-slate-100 flex flex-col gap-12 lg:gap-16">
-          {/* Top Section: Split Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
             {/* Left Side: Contact Information */}
             <div className="flex flex-col justify-center">
-              {/* Note: Update your common.json to "Keep in touch with us" if you want to match Figma exactly! */}
               <h1 className="text-4xl md:text-5xl font-semibold text-[#113243] mb-6">
                 {t("contactUs.title")}
               </h1>
@@ -66,7 +63,7 @@ function ContactUs() {
               <div className="space-y-6 text-slate-600">
                 {/* Location */}
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 shrink-0 text-slate-400">
+                  <div className="mt-1 shrink-0 text-[#84cc16]">
                     <svg
                       className="w-6 h-6"
                       fill="none"
@@ -86,14 +83,14 @@ function ContactUs() {
                       />
                     </svg>
                   </div>
-                  <span className="text-base">
-                    ABC Condo, Building 1, Floor 2, Room 2202
+                  <span className="text-[15px] leading-relaxed">
+                    {t("contactUs.location")}
                   </span>
                 </div>
 
                 {/* Email */}
                 <div className="flex items-center gap-4">
-                  <div className="shrink-0 text-slate-400">
+                  <div className="shrink-0 text-[#84cc16]">
                     <svg
                       className="w-6 h-6"
                       fill="none"
@@ -108,12 +105,12 @@ function ContactUs() {
                       />
                     </svg>
                   </div>
-                  <span className="text-base">everzone123@gmail.com</span>
+                  <span className="text-[15px]">{t("contactUs.email")}</span>
                 </div>
 
                 {/* Phone */}
                 <div className="flex items-center gap-4">
-                  <div className="shrink-0 text-slate-400">
+                  <div className="shrink-0 text-[#84cc16]">
                     <svg
                       className="w-6 h-6"
                       fill="none"
@@ -128,9 +125,7 @@ function ContactUs() {
                       />
                     </svg>
                   </div>
-                  <span className="text-base">
-                    +959123455789, +959987654321
-                  </span>
+                  <span className="text-[15px]">{t("contactUs.phone")}</span>
                 </div>
               </div>
             </div>
@@ -141,7 +136,7 @@ function ContactUs() {
               {status === "success" && (
                 <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-2xl flex items-center gap-3">
                   <span className="font-medium">
-                    Thank you! Your message has been sent.
+                    {t("contactUs.successMsg")}
                   </span>
                 </div>
               )}
@@ -159,7 +154,7 @@ function ContactUs() {
                   onChange={handleChange}
                   required
                   className="w-full px-6 py-4 rounded-full border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7fc41b] focus:border-transparent text-slate-700 placeholder-slate-400 bg-white"
-                  placeholder="Name"
+                  placeholder={t("contactUs.namePlaceholder")}
                 />
 
                 <input
@@ -169,7 +164,7 @@ function ContactUs() {
                   onChange={handleChange}
                   required
                   className="w-full px-6 py-4 rounded-full border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7fc41b] focus:border-transparent text-slate-700 placeholder-slate-400 bg-white"
-                  placeholder="Email"
+                  placeholder={t("contactUs.emailPlaceholder")}
                 />
 
                 <input
@@ -178,7 +173,7 @@ function ContactUs() {
                   value={formData.phone}
                   onChange={handleChange}
                   className="w-full px-6 py-4 rounded-full border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7fc41b] focus:border-transparent text-slate-700 placeholder-slate-400 bg-white"
-                  placeholder="Phone"
+                  placeholder={t("contactUs.phonePlaceholder")}
                 />
 
                 <textarea
@@ -188,7 +183,7 @@ function ContactUs() {
                   required
                   rows="4"
                   className="w-full px-6 py-5 rounded-[2rem] border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7fc41b] focus:border-transparent text-slate-700 placeholder-slate-400 bg-white resize-none"
-                  placeholder="How can we help?"
+                  placeholder={t("contactUs.messagePlaceholder")}
                 ></textarea>
 
                 <button
@@ -201,7 +196,9 @@ function ContactUs() {
                         : "bg-[#113243] hover:bg-[#18445a] shadow-md"
                     }`}
                 >
-                  {status === "submitting" ? "Sending..." : "Send Message"}
+                  {status === "submitting"
+                    ? t("contactUs.sendingBtn")
+                    : t("contactUs.sendBtn")}
                 </button>
               </form>
             </div>
@@ -209,9 +206,8 @@ function ContactUs() {
 
           {/* Bottom Section: Google Map */}
           <div className="w-full h-[400px] rounded-[2rem] overflow-hidden bg-slate-200 border border-slate-100">
-            {/* I used a generic map embed centered on Rangsit for testing. You can replace this src with your company's actual Google Maps embed link! */}
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15488.761008064415!2d100.57500366052745!3d13.963489814408018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e283ab0b95c37d%3A0x6b772b1464c1266!2sRangsit%20University!5e0!3m2!1sen!2sth!4v1690000000000!5m2!1sen!2sth"
+              src="https://maps.google.com/maps?q=Anawyahta%20Housing,%20Kamayut,%20Yangon&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}

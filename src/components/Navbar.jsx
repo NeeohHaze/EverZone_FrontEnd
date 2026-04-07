@@ -1,16 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router";
 import { useTranslation } from "react-i18next";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
 
-  // Helper to handle active state styling
-  // Uses the new Lime Green color (#84cc16) from your design
-  const getLinkClass = ({ isActive }) =>
-    isActive
-      ? "text-sm font-bold text-[#84cc16] transition"
-      : "text-sm font-medium text-slate-600 transition hover:text-slate-900";
+  // Simplified link class for anchor tags
+  const linkClass =
+    "text-sm font-medium text-slate-600 transition hover:text-[#84cc16]";
 
   const changeLanguage = async (language) => {
     await i18n.changeLanguage(language);
@@ -23,47 +19,42 @@ function Navbar() {
       : "text-slate-500 transition hover:text-slate-900";
 
   return (
-    <header className="sticky top-0 z-50 bg-white py-4">
+    <header className="sticky top-0 z-50 bg-white py-4 shadow-sm">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
         {/* LEFT: Logo */}
-        <div className="flex  items-center justify-between gap-20">
-          <NavLink to="/Home" className="flex flex-col items-center gap-2">
+        <div className="flex items-center justify-between gap-20">
+          <a href="#home" className="flex flex-col items-center gap-2">
             <div className="flex h-15 w-15 items-center justify-center rounded-full border-0.5 border-[#84cc16]">
-              <img
-                src="/src/assets/logo.jpg
-            "
-                alt="Ever Zone Logo"
-              />
+              <img src="/src/assets/logo.jpg" alt="Ever Zone Logo" />
             </div>
-          </NavLink>
+          </a>
 
           {/* CENTER: Navigation Links */}
-          {/* hidden on mobile (md:flex), visible on desktop */}
           <ul className="hidden items-center gap-8 md:flex">
             <li>
-              <NavLink to="/Home" className={getLinkClass}>
+              <a href="#home" className={linkClass}>
                 {t("navbar.home")}
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink to="/AboutUs" className={getLinkClass}>
+              <a href="#about" className={linkClass}>
                 {t("navbar.aboutUs")}
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink to="/Services" className={getLinkClass}>
+              <a href="#services" className={linkClass}>
                 {t("navbar.services")}
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink to="/Projects" className={getLinkClass}>
+              <a href="#projects" className={linkClass}>
                 {t("navbar.projects")}
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink to="/ContactUs" className={getLinkClass}>
+              <a href="#contact" className={linkClass}>
                 {t("navbar.contactUs")}
-              </NavLink>
+              </a>
             </li>
           </ul>
         </div>
@@ -74,7 +65,6 @@ function Navbar() {
             type="button"
             onClick={() => changeLanguage("en")}
             className={getLanguageClass("en")}
-            aria-pressed={i18n.resolvedLanguage === "en"}
           >
             EN
           </button>
@@ -83,7 +73,6 @@ function Navbar() {
             type="button"
             onClick={() => changeLanguage("my")}
             className={getLanguageClass("my")}
-            aria-pressed={i18n.resolvedLanguage === "my"}
           >
             MM
           </button>

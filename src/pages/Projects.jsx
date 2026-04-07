@@ -11,6 +11,8 @@ function Projects() {
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Initialize the translation function
   const { t } = useTranslation();
 
   // Fetch the data
@@ -45,13 +47,14 @@ function Projects() {
         setIsLoading(false);
       } catch (err) {
         console.error("Error fetching projects:", err);
-        setError("Failed to load projects.");
+        // Translated Error State
+        setError(t("projects.errorFetch"));
         setIsLoading(false);
       }
     };
 
     fetchProjects();
-  }, []);
+  }, [t]); // Added 't' to dependency array
 
   // Filter projects based on the active category tab
   const filteredProjects = projects.filter(
@@ -79,7 +82,7 @@ function Projects() {
     return (
       <div className="flex justify-center items-center min-h-screen bg-slate-50">
         <div className="text-xl font-semibold animate-pulse text-[#113243]">
-          Loading projects...
+          {t("projects.loading")}
         </div>
       </div>
     );
@@ -156,7 +159,7 @@ function Projects() {
                           strokeLinejoin="round"
                           strokeWidth="2"
                           d="M15 19l-7-7 7-7"
-                        ></path>
+                        />
                       </svg>
                     </button>
                     <button
@@ -174,7 +177,7 @@ function Projects() {
                           strokeLinejoin="round"
                           strokeWidth="2"
                           d="M9 5l7 7-7 7"
-                        ></path>
+                        />
                       </svg>
                     </button>
                   </div>
@@ -202,7 +205,7 @@ function Projects() {
                           strokeLinejoin="round"
                           strokeWidth="1.5"
                           d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                        ></path>
+                        />
                       </svg>
                       <span className="text-slate-700 font-medium text-sm mb-1">
                         {t("projects.area")}
@@ -225,13 +228,13 @@ function Projects() {
                           strokeLinejoin="round"
                           strokeWidth="1.5"
                           d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                        ></path>
+                        />
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth="1.5"
                           d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
+                        />
                       </svg>
                       <span className="text-slate-700 font-medium text-sm mb-1">
                         {t("projects.location")}
@@ -254,7 +257,7 @@ function Projects() {
                           strokeLinejoin="round"
                           strokeWidth="1.5"
                           d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        ></path>
+                        />
                       </svg>
                       <span className="text-slate-700 font-medium text-sm mb-1">
                         {t("projects.duration")}
@@ -277,7 +280,7 @@ function Projects() {
                           strokeLinejoin="round"
                           strokeWidth="1.5"
                           d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                        ></path>
+                        />
                       </svg>
                       <span className="text-slate-700 font-medium text-sm mb-1">
                         {t("projects.type")}
@@ -301,7 +304,7 @@ function Projects() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100 rounded-2xl">
-                      No Image Available
+                      {t("projects.noImage")}
                     </div>
                   )}
 
@@ -322,7 +325,7 @@ function Projects() {
                           strokeLinejoin="round"
                           strokeWidth="2.5"
                           d="M15 19l-7-7 7-7"
-                        ></path>
+                        />
                       </svg>
                     </button>
                     <div className="w-px h-4 bg-white/30"></div>
@@ -341,7 +344,7 @@ function Projects() {
                           strokeLinejoin="round"
                           strokeWidth="2.5"
                           d="M9 5l7 7-7 7"
-                        ></path>
+                        />
                       </svg>
                     </button>
                   </div>
@@ -351,7 +354,7 @@ function Projects() {
           ) : (
             <div className="text-center text-slate-500 py-20 bg-white rounded-[2rem] shadow-sm">
               <p className="text-xl font-medium mb-2">
-                No projects in this category.
+                {t("projects.noCategoryProjects")}
               </p>
             </div>
           )}

@@ -1,96 +1,94 @@
 import React from "react";
-import { useTranslation, initReactI18next } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 function AboutUs() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen w-full bg-slate-50">
       {/* 1. Dark Blue Header Section */}
-      {/* pb-32 adds space at the bottom for the white card to pull up into */}
-      <div className="w-full bg-[#1a455a] px-6 pb-32 pt-16 text-center  lg:px-16">
+      <div className="w-full bg-[#1a455a] px-6 pb-32 pt-16 text-center lg:px-16">
         <h1 className="text-3xl font-medium text-white sm:text-4xl">
-          Get to know about us
+          {t("aboutUs.header")}
         </h1>
       </div>
 
       {/* 2. Overlapping White Content Card */}
-      {/* -mt-20 pulls this div up to overlap the blue header */}
       <div className="mx-auto -mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="min-h-screen rounded-t-[3rem] bg-white p-8 shadow-xl sm:p-12 lg:p-20">
-          {/* Grid Layout: 1 Column on Mobile, 2 Columns on Desktop */}
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
             {/* LEFT COLUMN */}
-            <div className="space-y-16">
-              {/* Section: Company Profile */}
+            <div className="space-y-12">
+              {/* Company Profile */}
               <section>
                 <h2 className="mb-6 text-2xl font-bold text-slate-700 sm:text-3xl">
-                  Company profile and history
+                  {t("aboutUs.profileTitle")}
                 </h2>
-                <p className="leading-relaxed text-slate-600 text-justify">
-                  Engineering is the practice of turning ideas into real-world
-                  solutions by combining creativity, math, and problem-solving.
-                  Engineers design systems that must work reliably under real
-                  constraints, whether that means building bridges that can
-                  withstand earthquakes, writing software that handles millions
-                  of users, or creating machines that use less energy while
-                  doing more work. What makes engineering unique is the constant
-                  balance between theory and practicality—an elegant design is
-                  only successful if it can be built, maintained, and improved
-                  over time.
-                </p>
+                <div className="space-y-4 text-slate-600 leading-relaxed text-justify">
+                  <p>{t("aboutUs.profileDesc1")}</p>
+                  <ul className="list-disc pl-5">
+                    <li>{t("aboutUs.profileDesc2")}</li>
+                  </ul>
+                </div>
               </section>
 
-              {/* Section: Board of Directors */}
+              {/* Board of Directors */}
               <section>
                 <h2 className="mb-6 text-2xl font-bold text-slate-700 sm:text-3xl">
-                  Board of directors and key management
+                  {t("aboutUs.boardTitle")}
                 </h2>
-                <p className="leading-relaxed text-slate-600 text-justify">
-                  Engineering is the practice of turning ideas into real-world
-                  solutions by combining creativity, math, and problem-solving.
-                  Engineers design systems that must work reliably under real
-                  constraints, whether that means building bridges that can
-                  withstand earthquakes, writing software that handles millions
-                  of users, or creating machines that use less energy while
-                  doing more work.
-                </p>
+                <div className="space-y-4 text-slate-600 leading-relaxed text-justify">
+                  <p>{t("aboutUs.boardDesc1")}</p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li>{t("aboutUs.boardDesc2")}</li>
+                    <li>{t("aboutUs.boardDesc3")}</li>
+                  </ul>
+                </div>
               </section>
             </div>
 
             {/* RIGHT COLUMN */}
-            <div className="space-y-16">
-              {/* Section: Vision & Mission */}
+            <div className="space-y-12">
+              {/* Vision & Mission */}
               <section>
                 <h2 className="mb-6 text-2xl font-bold text-slate-700 sm:text-3xl">
-                  Vision, Mission and Core Values
+                  {t("aboutUs.visionTitle")}
                 </h2>
-                <p className="leading-relaxed text-slate-600 text-justify">
-                  Engineering is the practice of turning ideas into real-world
-                  solutions by combining creativity, math, and problem-solving.
-                  Engineers design systems that must work reliably under real
-                  constraints, whether that means building bridges that can
-                  withstand earthquakes, writing software that handles millions
-                  of users. What makes engineering unique is the constant
-                  balance between theory and practicality—an elegant design is
-                  only successful if it can be built, maintained, and improved
-                  over time. Through testing, iteration, and collaboration,
-                  engineering quietly shapes everyday life.
-                </p>
+                <div className="space-y-4 text-slate-600 leading-relaxed">
+                  <p>{t("aboutUs.vision")}</p>
+                  <p>{t("aboutUs.mission")}</p>
+                  <p>{t("aboutUs.coreValuesTitle")}</p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>{t("aboutUs.val1")}</li>
+                    <li>{t("aboutUs.val2")}</li>
+                    <li>{t("aboutUs.val3")}</li>
+                    <li>{t("aboutUs.val4")}</li>
+                    <li>{t("aboutUs.val5")}</li>
+                    <li>{t("aboutUs.val6")}</li>
+                  </ul>
+                </div>
               </section>
 
-              {/* Section: Consultants */}
+              {/* Consultants */}
               <section>
                 <h2 className="mb-6 text-2xl font-bold text-slate-700 sm:text-3xl">
-                  Consultants and professional credentials
+                  {t("aboutUs.consultantsTitle")}
                 </h2>
-                <p className="leading-relaxed text-slate-600 text-justify">
-                  Engineering is the practice of turning ideas into real-world
-                  solutions by combining creativity, math, and problem-solving.
-                  Engineers design systems that must work reliably under real
-                  constraints. Engineers design systems that must work reliably
-                  under real constraints, whether that means building bridges
-                  that can withstand earthquakes.
-                </p>
+                <div className="space-y-6 text-slate-600 leading-relaxed">
+                  <p>{t("aboutUs.consultantsSubtitle")}</p>
+
+                  <div>
+                    <p className="font-semibold">{t("aboutUs.c1Title")}</p>
+                    <p className="pl-4">{t("aboutUs.c1Name")}</p>
+                    <p className="pl-4 font-medium">{t("aboutUs.c1Role")}</p>
+                  </div>
+
+                  <div>
+                    <p className="font-semibold">{t("aboutUs.c2Title")}</p>
+                    <p className="pl-4">{t("aboutUs.c2Name")}</p>
+                    <p className="pl-4 font-medium">{t("aboutUs.c2Role")}</p>
+                  </div>
+                </div>
               </section>
             </div>
           </div>

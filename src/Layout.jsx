@@ -12,7 +12,6 @@ function Layout() {
       <main className="flex-grow">
         <Outlet />
       </main>
-
       <Footer />
 
       {/* Add the Chatbot component here */}
