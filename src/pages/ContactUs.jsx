@@ -51,11 +51,12 @@ function ContactUs() {
         <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 lg:p-16 border border-slate-100 flex flex-col gap-12 lg:gap-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
             {/* Left Side: Contact Information */}
-            <div className="flex flex-col justify-center">
+
+            <div className="flex flex-col justify-start pt-2">
               <h1 className="text-4xl md:text-5xl font-semibold text-[#113243] mb-6">
                 {t("contactUs.title")}
               </h1>
-              <p className="text-slate-500 text-lg leading-relaxed mb-10">
+              <p className="text-slate-500 text-lg leading-relaxed mb-10 max-w-md">
                 {t("contactUs.subtitle")}
               </p>
 
@@ -129,7 +130,6 @@ function ContactUs() {
                 </div>
               </div>
             </div>
-
             {/* Right Side: Contact Form */}
             <div>
               {/* Alerts */}
