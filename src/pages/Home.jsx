@@ -104,6 +104,10 @@ function Home() {
             </svg>
           </a>
         </div>
+
+        <span className="text-slate-400 font-medium text-[13px] mb-1">
+          © 2026 Ever Zone. All rights reserved.
+        </span>
       </div>
     </div>
   );

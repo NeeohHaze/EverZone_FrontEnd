@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import logoImg from "../assets/logo.jpg";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
@@ -25,7 +26,7 @@ function Navbar() {
         <div className="flex items-center justify-between gap-20">
           <a href="#home" className="flex flex-col items-center gap-2">
             <div className="flex h-15 w-15 items-center justify-center rounded-full border-0.5 border-[#84cc16]">
-              <img src="/src/assets/logo.jpg" alt="Ever Zone Logo" />
+              <img src={logoImg} alt="Ever Zone Logo" />
             </div>
           </a>
 
