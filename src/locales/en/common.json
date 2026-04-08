@@ -60,5 +60,8 @@
   "projects.loading": "Loading projects...",
   "projects.errorFetch": "Failed to load projects.",
   "projects.noImage": "No Image Available",
-  "projects.noCategoryProjects": "No projects in this category."
+  "projects.noCategoryProjects": "No projects in this category.",
+  "services.loading": "Loading services...",
+  "services.errorFetch": "Failed to load services.",
+  "services.noImage": "No Image Available"
 }

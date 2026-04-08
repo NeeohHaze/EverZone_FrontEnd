@@ -60,5 +60,8 @@
   "projects.loading": "ပရောဂျက်များကို ဖွင့်နေပါသည်...",
   "projects.errorFetch": "ပရောဂျက်များကို ရယူရာတွင် အမှားအယွင်းဖြစ်ပေါ်ခဲ့ပါသည်။",
   "projects.noImage": "ပုံမရရှိနိုင်ပါ",
-  "projects.noCategoryProjects": "ဤအမျိုးအစားတွင် ပရောဂျက်များ မရှိပါ။"
+  "projects.noCategoryProjects": "ဤအမျိုးအစားတွင် ပရောဂျက်များ မရှိပါ။",
+  "services.loading": "ဝန်ဆောင်မှုများကို ဖွင့်နေပါသည်...",
+  "services.errorFetch": "ဝန်ဆောင်မှုများကို ရယူရာတွင် အမှားအယွင်းဖြစ်ပေါ်ခဲ့ပါသည်။",
+  "services.noImage": "ပုံမရရှိနိုင်ပါ"
 }

@@ -10,7 +10,7 @@ function Home() {
       {/* Top: Massive Hero Image */}
       <div className="w-full max-w-6xl h-[350px] md:h-[450px] lg:h-[550px] rounded-[2.5rem] overflow-hidden shadow-lg mb-12">
         <img
-          src="/src/assets/HeroImg.png"
+          src="/src/assets/HeroImg.jpg"
           alt="EverZone Building"
           className="w-full h-full object-cover"
         />
@@ -80,7 +80,7 @@ function Home() {
       <div className="absolute bottom-8 left-6 lg:left-16 flex items-end gap-6 z-20">
         <div className="flex flex-col gap-5 text-slate-400">
           <a
-            href="#"
+            href="https://www.facebook.com/share/1EJekSHxiE/?mibextid=wwXIfr"
             className="transition hover:text-[#84cc16] hover:scale-110"
           >
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -88,7 +88,7 @@ function Home() {
             </svg>
           </a>
           <a
-            href="#"
+            href=""
             className="transition hover:text-[#84cc16] hover:scale-110"
           >
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">

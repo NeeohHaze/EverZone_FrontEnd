@@ -7,8 +7,8 @@ function AboutUs() {
   return (
     <div className="min-h-screen w-full bg-slate-50">
       {/* 1. Dark Blue Header Section */}
-      <div className="w-full bg-[#1a455a] px-6 pb-32 pt-16 text-center lg:px-16">
-        <h1 className="text-3xl font-medium text-white sm:text-4xl">
+      <div className="w-full bg-[#1a455a] px-6 pb-24 pt-10 text-center lg:px-16">
+        <h1 className="text-3xl font-medium text-white sm:text-4xl tracking-wide">
           {t("aboutUs.header")}
         </h1>
       </div>
