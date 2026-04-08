@@ -267,13 +267,6 @@ function ContactUs() {
                     referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
                 </div>
-
-                {/* Copyright Text aligned left below the map */}
-                <div className="w-full pl-2">
-                  <span className="text-slate-400 font-medium text-[13px]">
-                    © 2026 Ever Zone. All rights reserved.
-                  </span>
-                </div>
               </div>
             </div>
           </div>
@@ -284,3 +277,4 @@ function ContactUs() {
 }
 
 export default ContactUs;
+``;
