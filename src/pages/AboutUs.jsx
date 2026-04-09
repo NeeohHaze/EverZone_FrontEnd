@@ -4,8 +4,9 @@ import { useTranslation } from "react-i18next";
 function AboutUs() {
   const { t } = useTranslation();
 
-  // State and Ref for the mobile swiping cards
+  // State for mobile swiping cards and the "See more" feature
   const [activeMobileCard, setActiveMobileCard] = useState(0);
+  const [isBoardExpanded, setIsBoardExpanded] = useState(false); // New state for Card 2
   const mobileScrollRef = useRef(null);
 
   // Automatically update the active number when swiping
@@ -13,13 +14,11 @@ function AboutUs() {
     if (!mobileScrollRef.current) return;
     const container = mobileScrollRef.current;
 
-    // Find the center point of the scroll container
     const center = container.scrollLeft + container.offsetWidth / 2;
 
     let closestIndex = 0;
     let minDistance = Infinity;
 
-    // Loop through cards to find which one is closest to the center
     Array.from(container.children).forEach((child, index) => {
       const childCenter =
         child.offsetLeft - container.offsetLeft + child.offsetWidth / 2;
@@ -48,8 +47,8 @@ function AboutUs() {
 
   return (
     <div className="min-h-screen w-full bg-slate-50 pb-20 overflow-hidden">
-      {/* 1. Dark Blue Header Section (Slimmer on mobile, spacious on PC) */}
-      <div className="w-full bg-[#113243] px-6 pt-6 pb-16 lg:pt-16 lg:pb-32 text-center lg:px-16">
+      {/* 1. Dark Blue Header Section */}
+      <div className="w-full bg-[#113243] px-6 pt-10 pb-20 lg:pt-16 lg:pb-32 flex justify-center text-center lg:px-16">
         <h1 className="text-3xl font-medium text-white sm:text-4xl tracking-wide">
           {t("aboutUs.header")}
         </h1>
@@ -59,16 +58,15 @@ function AboutUs() {
           MOBILE LAYOUT: Swiping Cards 
           (Hidden on Large Screens)
       ========================================= */}
-
       <div className="relative -mt-10 w-full lg:hidden flex flex-col items-center">
-        {/* Scroll Container */}
+        {/* Scroll Container with items-stretch to make heights equal */}
         <div
           ref={mobileScrollRef}
           onScroll={handleScroll}
           className="flex items-stretch w-full snap-x snap-mandatory overflow-x-auto gap-6 px-[7.5vw] pb-6 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           {/* CARD 1: Company Profile */}
-          <div className="snap-center shrink-0 w-[85vw] h-auto bg-white rounded-[2.5rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.15)] flex flex-col justify-start items-center text-center">
+          <div className="snap-center shrink-0 w-[85vw] h-full bg-white rounded-[2.5rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.15)] flex flex-col justify-start items-center text-center">
             <h2 className="mb-6 text-2xl font-medium text-slate-700 leading-snug">
               {t("aboutUs.profileTitle")}
             </h2>
@@ -82,24 +80,54 @@ function AboutUs() {
             </div>
           </div>
 
-          {/* CARD 2: Board of Directors */}
-          <div className="snap-center shrink-0 w-[85vw] h-auto bg-white rounded-[2.5rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.15)] flex flex-col justify-start items-center text-center">
+          {/* CARD 2: Board of Directors (With "See More" Feature) */}
+          <div className="snap-center shrink-0 w-[85vw] h-full bg-white rounded-[2.5rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.15)] flex flex-col justify-start items-center text-center">
             <h2 className="mb-6 text-2xl font-medium text-slate-700 leading-snug">
               {t("aboutUs.boardTitle")}
             </h2>
-            <div className="space-y-4 text-slate-500 text-[15px] leading-[1.8]">
-              <p>{t("aboutUs.boardDesc1")}</p>
-              <div className="flex justify-center w-full">
-                <ul className="list-disc text-left pl-5 space-y-2 mt-2">
-                  <li>{t("aboutUs.boardDesc2")}</li>
-                  <li>{t("aboutUs.boardDesc3")}</li>
-                </ul>
-              </div>
+            <div className="flex flex-col items-center text-slate-500 text-[15px] leading-[1.8] w-full">
+              {/* Text fades out or clamps when not expanded */}
+              <p className={isBoardExpanded ? "mb-4" : "line-clamp-3 mb-2"}>
+                {t("aboutUs.boardDesc1")}
+              </p>
+
+              {/* Only show the list if expanded */}
+              {isBoardExpanded && (
+                <div className="flex justify-center w-full mb-4 animate-fadeIn">
+                  <ul className="list-disc text-left pl-5 space-y-2">
+                    <li>{t("aboutUs.boardDesc2")}</li>
+                    <li>{t("aboutUs.boardDesc3")}</li>
+                  </ul>
+                </div>
+              )}
+
+              {/* The "See more / See less" Toggle Button */}
+              <button
+                onClick={() => setIsBoardExpanded(!isBoardExpanded)}
+                className="mt-auto pt-2 flex items-center gap-1.5 text-[#84cc16] font-medium text-sm hover:scale-105 transition-transform"
+              >
+                {isBoardExpanded ? "See less" : "See more"}
+                <svg
+                  className={`w-4 h-4 transition-transform duration-300 ${
+                    isBoardExpanded ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
 
           {/* CARD 3: Vision & Mission */}
-          <div className="snap-center shrink-0 w-[85vw] h-auto bg-white rounded-[2.5rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.15)] flex flex-col justify-start items-center text-center">
+          <div className="snap-center shrink-0 w-[85vw] h-full bg-white rounded-[2.5rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.15)] flex flex-col justify-start items-center text-center">
             <h2 className="mb-6 text-2xl font-medium text-slate-700 leading-snug">
               {t("aboutUs.visionTitle")}
             </h2>
@@ -123,7 +151,7 @@ function AboutUs() {
           </div>
 
           {/* CARD 4: Consultants */}
-          <div className="snap-center shrink-0 w-[85vw] h-auto bg-white rounded-[2.5rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.15)] flex flex-col justify-start items-center text-center">
+          <div className="snap-center shrink-0 w-[85vw] h-full bg-white rounded-[2.5rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.15)] flex flex-col justify-start items-center text-center">
             <h2 className="mb-6 text-2xl font-medium text-slate-700 leading-snug">
               {t("aboutUs.consultantsTitle")}
             </h2>
@@ -248,7 +276,7 @@ function AboutUs() {
                         {t("aboutUs.c1Title")}
                       </p>
                       <p className="mt-1">{t("aboutUs.c1Name")}</p>
-                      <p className="font-medium text-[#84cc16]">
+                      <p className="font-medium text-slate-700">
                         {t("aboutUs.c1Role")}
                       </p>
                     </div>
@@ -257,7 +285,7 @@ function AboutUs() {
                         {t("aboutUs.c2Title")}
                       </p>
                       <p className="mt-1">{t("aboutUs.c2Name")}</p>
-                      <p className="font-medium text-[#84cc16]">
+                      <p className="font-medium text-slate-700">
                         {t("aboutUs.c2Role")}
                       </p>
                     </div>
